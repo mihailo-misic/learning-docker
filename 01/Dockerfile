@@ -1,4 +1,9 @@
-FROM ubuntu:latest
-RUN apt-get update && apt-get install
+FROM golang:1.10
 
-CMD echo "done"
+WORKDIR /go/src/app
+COPY . .
+
+RUN go get -d -v ./...
+RUN go install -v ./...
+
+CMD ["app"]
