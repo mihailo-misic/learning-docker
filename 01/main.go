@@ -1,16 +1,15 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"github.com/julienschmidt/httprouter"
 )
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
-}
+var router = httprouter.New()
 
 func main() {
-	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	router.GET("/", Home)
+	
+	log.Fatal(http.ListenAndServe(":8000", router))
 }
