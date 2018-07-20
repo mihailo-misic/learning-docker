@@ -9,7 +9,12 @@ import (
 var router = httprouter.New()
 
 func main() {
-	router.GET("/", Home)
-	
+	// Get all
+	router.GET("/", Index)
+	// Get one
+	// Create
+	// Update
+	// Delete
+
 	log.Fatal(http.ListenAndServe(":8000", router))
 }

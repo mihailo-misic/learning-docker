@@ -10,7 +10,7 @@ type HomePageData struct {
 	PageTitle string
 }
 
-func Home(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	tmpl := template.Must(template.ParseFiles("views/home.gohtml"))
 	
 	data := HomePageData{
