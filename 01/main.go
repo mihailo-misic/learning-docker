@@ -2,19 +2,28 @@ package main
 
 import (
 	"log"
-	"net/http"
-	"github.com/julienschmidt/httprouter"
+	"github.com/gin-gonic/gin"
+	c "./controllers"
+	"./database"
 )
 
-var router = httprouter.New()
+var r = gin.Default()
 
 func main() {
+	// Setup database
+	db := database.Init()
+	defer func() {
+		if err := db.Close(); err != nil {
+			panic(err)
+		}
+	}()
+
 	// Get all
-	router.GET("/", Index)
+	r.GET("/", c.GetProducts)
 	// Get one
 	// Create
 	// Update
 	// Delete
 
-	log.Fatal(http.ListenAndServe(":8000", router))
+	log.Fatal(r.Run(":8000"))
 }

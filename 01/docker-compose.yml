@@ -1,5 +1,17 @@
+postgres:
+  image: postgres:10.4
+  environment:
+    POSTGRES_USER: mygo
+    POSTGRES_USER: secret
+  ports:
+    - '5433:5432'
+  volumes:
+    - ~/.docker-volumes/mygo/posgresql/data:/var/lib/posgresql/data
+
 mygo:
   build: .
+  links:
+    - postgres
   volumes:
     - .:/go/src/app
   ports:
