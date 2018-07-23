@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	m "../models"
-	"../res"
+	m "github.com/mihailo-misic/learning-docker/01/models"
+	"github.com/mihailo-misic/learning-docker/01/res"
 	"net/http"
 )
 

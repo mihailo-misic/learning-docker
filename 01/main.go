@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 	"github.com/gin-gonic/gin"
-	c "./controllers"
-	"./database"
+	c "github.com/mihailo-misic/learning-docker/01/controllers"
+	"github.com/mihailo-misic/learning-docker/01/database"
 )
 
 var r = gin.Default()
