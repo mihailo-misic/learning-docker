@@ -1,18 +1,35 @@
-postgres:
-  image: postgres:10.4
-  environment:
-    POSTGRES_USER: mygo
-    POSTGRES_USER: secret
-  ports:
-    - '5433:5432'
-  volumes:
-    - ~/.docker-volumes/mygo/posgresql/data:/var/lib/posgresql/data
+version: '3'
 
-mygo:
-  build: .
-  links:
-    - postgres
-  volumes:
-    - .:/go/src/app
-  ports:
-    - '8000:8000'
+services:
+  postgres:
+    image: postgres:10.4
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: mygo
+      POSTGRES_DB: crm
+    ports:
+      - '5433:5432'
+    volumes:
+      - ~/.docker-volumes/mygo/posgresql/data:/var/lib/posgresql/data
+
+  mygo:
+    build: .
+    depends_on:
+      - 'postgres'
+    links:
+      - 'postgres'
+    volumes:
+      - .:/go/src/app
+    ports:
+      - '8000:8000'
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - 'postgres'
+    links:
+      - 'postgres'
+    ports:
+      - 8090:8080

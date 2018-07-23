@@ -13,12 +13,12 @@ func Init() (db *gorm.DB) {
 	var err error
 	db, err = gorm.Open("postgres", `
 		host=postgres
-		port=5433
+		port=5432
 		user=mygo
 		dbname=crm
 		password=secret
 		sslmode=disable
-	`)
+`)
 	if err != nil {
 		log.Fatal(err)
 	}
