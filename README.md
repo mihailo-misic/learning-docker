@@ -4,8 +4,7 @@ Just learning docker
 ## TODO
 
 - [ ] Make a simple go app for making gophers in a container
-  - [ ] Simple CRUD
-  - [ ] Template (css & js)
+  - [x] Simple CRUD
   - [ ] Auth
   - [ ] Upload (should persist)
   - [ ] Test

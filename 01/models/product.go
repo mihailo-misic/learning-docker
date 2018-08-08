@@ -19,9 +19,20 @@ type (
 
 	// ResProduct represents a formatted Product
 	ResProduct struct {
-		ID    uint64 `json:"id"`
-		Name  string `json:"name"`
-		Price int    `json:"price"`
-		Image string `json:"image"`
+		ID    uint64 `form:"id" json:"id"`
+		Name  string `form:"name" json:"name"`
+		Price int    `form:"price" json:"price"`
+		Image string `form:"image" json:"image"`
+	}
+
+	// FormProduct represents Product form data
+	FormProduct struct {
+		Name  string `form:"name" json:"name" binding:"required"`
+		Price int    `form:"price" json:"price" binding:"required"`
+		Image string `form:"image" json:"image"`
 	}
 )
+
+func (FormProduct) TableName() string {
+	return "products"
+}

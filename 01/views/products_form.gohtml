@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Container</title>
+</head>
+<body style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+
+    <h1>{{ .PageTitle }}</h1>
+
+    <div style="align-self: flex-end; padding: 15px;">
+        <a href="/">Back</a>
+    </div>
+
+{{ if .Product }}
+    <!-- Edit -->
+    <form action="/product/{{.Product.ID}}" method="POST" style="text-align: center;">
+        <input type="hidden" name="_method" value="PUT">
+
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{.Product.Name}}">
+
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price" value="{{.Product.Price}}">
+
+        <label for="image">Image</label>
+        <input type="text" id="image" name="image" value="{{.Product.Image}}">
+
+        <hr>
+
+        <button type="submit">Submit</button>
+    </form>
+{{ else }}
+    <!-- Create -->
+    <form action="/products" method="POST" style="text-align: center;">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+
+        <label for="price">Price</label>
+        <input type="text" id="price" name="price">
+
+        <label for="image">Image</label>
+        <input type="text" id="image" name="image">
+
+        <hr>
+
+        <button type="submit">Submit</button>
+    </form>
+{{ end }}
+
+</body>
+</html>

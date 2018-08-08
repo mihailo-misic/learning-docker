@@ -6,20 +6,26 @@ import (
 	c "github.com/mihailo-misic/learning-docker/01/controllers"
 	"github.com/mihailo-misic/learning-docker/01/database"
 	m "github.com/mihailo-misic/learning-docker/01/models"
+	method "github.com/bu/gin-method-override"
 	"log"
 )
 
 func setupRouter() *gin.Engine {
 	r := gin.Default()
 
+	r.Use(method.ProcessMethodOverride(r))
+
 	r.LoadHTMLGlob("views/*")
 
-	r.GET("/home", c.Homers)
 	r.GET("/", c.GetProducts)
-	r.GET("/products/:id", c.GetProduct)
+
+	r.GET("/products", c.GetProducts)
+	r.GET("/products/create", c.ProductForm)
+	r.GET("/product/:id/edit", c.ProductForm)
+	r.GET("/product/:id", c.GetProduct)
 	r.POST("/products", c.CreateProduct)
-	r.PUT("/products/:id", c.UpdateProduct)
-	r.DELETE("/products/:id", c.DeleteProduct)
+	r.PUT("/product/:id", c.UpdateProduct)
+	r.GET("/product/:id/delete", c.DeleteProduct)
 
 	return r
 }

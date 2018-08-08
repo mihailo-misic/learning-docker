@@ -31,6 +31,6 @@ services:
     links:
       - 'postgres'
     volumes:
-      - .:/go/src/app
+      - .:/go/src/github.com/mihailo-misic/learning-docker/01
     ports:
       - '8000:8000'

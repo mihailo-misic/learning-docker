@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Container</title>
+</head>
+<body style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+
+    <h1>{{ .PageTitle }}</h1>
+
+    <div style="align-self: flex-end; padding: 15px;">
+        <a href="/products/create">Create</a>
+    </div>
+
+    <table border="1" style="border-collapse: collapse; width: 100%">
+        <thead>
+            <tr style="background-color: lightgray;">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {{ if len .Products}}
+        {{ range $v := .Products }}
+            <tr>
+                <td>{{ $v.ID}}</td>
+                <td>{{ $v.Name}}</td>
+                <td>{{ $v.Price}}</td>
+                <td>{{ $v.Image}}</td>
+                <td>
+                    <a href="/product/{{$v.ID}}/edit">Edit</a>
+                    <a href="/product/{{$v.ID}}/delete">Delete</a>
+                </td>
+            </tr>
+        {{ end }}
+        {{ else }}
+            <tr>
+                <td colspan="100" style="text-align: center; padding: 10px;">
+                    <b>No Products</b>
+                </td>
+            </tr>
+        {{ end }}
+        </tbody>
+    </table>
+
+</body>
+</html>

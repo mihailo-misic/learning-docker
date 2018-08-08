@@ -5,17 +5,15 @@ import (
 	. "github.com/mihailo-misic/learning-docker/01/models"
 	"net/http"
 	"github.com/mihailo-misic/learning-docker/01/res"
+	"log"
 )
-
-func Homers(c *gin.Context) {
-	// c.JSON(http.StatusOK, gin.H{"PageTitle": "Yes"})
-	c.HTML(http.StatusOK, "home.gohtml", gin.H{"PageTitle": "Yes"})
-}
 
 // [GET] all
 func GetProducts(c *gin.Context) {
-	c.HTML(http.StatusOK, "home.gohtml", gin.H{"PageTitle": "Yes"})
-	// c.JSON(http.StatusOK, res.Data(db.Find(&[]Product{})))
+	c.HTML(http.StatusOK, "products.gohtml", gin.H{
+		"PageTitle": "Products",
+		"Products":  db.Find(&[]Product{}).Value,
+	})
 }
 
 // [GET] one
@@ -27,16 +25,18 @@ func GetProduct(c *gin.Context) {
 
 // [POST] create
 func CreateProduct(c *gin.Context) {
-	var product Product
-	if err := c.BindJSON(&product); err != nil {
+	var product FormProduct
+	c.Request.ParseForm()
+
+	if err := c.Bind(&product); err != nil {
 		c.JSON(http.StatusBadRequest, res.Err(res.Error{"Could not parse the data", "Error occurred while parsing the data", err}))
 		return
 	}
 
-	db.Save(&product)
+	ok := db.Save(&product)
 
-	if product.ID != 0 {
-		c.JSON(http.StatusOK, res.Data(product))
+	if ok.RowsAffected > 0 {
+		c.Redirect(http.StatusMovedPermanently, "/")
 		return
 	}
 	c.JSON(http.StatusBadRequest, res.Err(res.Error{"Could not create the product", "An error occurred while creating the new product", nil}))
@@ -48,17 +48,19 @@ func UpdateProduct(c *gin.Context) {
 	var prod Product
 	var newProd ResProduct
 
+	c.Request.ParseForm()
+
 	// Find the product
 	db.First(&prod, id)
 	// Parse the request data
-	if err := c.BindJSON(&newProd); err != nil {
+	if err := c.Bind(&newProd); err != nil {
 		c.JSON(http.StatusBadRequest, res.Err(res.Error{"Could not parse the data", "Error occurred while parsing the data", err}))
 		return
 	}
 	// Update the product in the database
 	db.Model(&prod).Updates(newProd)
 
-	c.JSON(http.StatusOK, res.Data(prod))
+	c.Redirect(http.StatusMovedPermanently, "/")
 }
 
 // [DELETE] delete
@@ -66,11 +68,28 @@ func DeleteProduct(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var prod Product
 
-	db.Delete(&prod, id)
+	ok := db.Delete(&prod, id)
 
-	if prod.ID != 0 {
-		c.JSON(http.StatusOK, res.Data(prod))
+	log.Println(ok.RowsAffected)
+
+	if ok.RowsAffected > 0 {
+		c.Redirect(http.StatusMovedPermanently, "/")
+		return
 	}
 
 	c.JSON(http.StatusBadRequest, res.Err(res.Error{"Unable to delete", "Error occurred while deleting the product", nil}))
+}
+
+// [GET] Form
+func ProductForm(c *gin.Context) {
+	id := c.Params.ByName("id")
+	var product interface{}
+	if id != "" {
+		product = db.First(&Product{}, id).Value
+	}
+
+	c.HTML(http.StatusOK, "products_form.gohtml", gin.H{
+		"PageTitle": "Products",
+		"Product":   product,
+	})
 }
