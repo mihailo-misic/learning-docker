@@ -2,14 +2,14 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	m "github.com/mihailo-misic/learning-docker/01/models"
+	. "github.com/mihailo-misic/learning-docker/01/models"
 	"github.com/mihailo-misic/learning-docker/01/res"
 	"net/http"
 )
 
 // [POST] create
 func CreateUser(c *gin.Context) {
-	var user m.User
+	var user User
 	if err := c.BindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, res.Err(res.Error{"Could not parse the data", "Error occurred while parsing the data", err}))
 		return
@@ -26,21 +26,21 @@ func CreateUser(c *gin.Context) {
 
 // [GET] all
 func GetUsers(c *gin.Context) {
-	c.JSON(http.StatusOK, res.Data(db.Find(&[]m.User{})))
+	c.JSON(http.StatusOK, res.Data(db.Find(&[]User{})))
 }
 
 // [GET] one
 func GetUser(c *gin.Context) {
 	id := c.Params.ByName("id")
 
-	c.JSON(http.StatusOK, res.Data(db.First(&m.User{}, id)))
+	c.JSON(http.StatusOK, res.Data(db.First(&User{}, id)))
 }
 
 // [PUT] update
 func UpdateUser(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var user m.User
-	var newUser m.ResUser
+	var user User
+	var newUser ResUser
 
 	// Find the user
 	db.First(&user, id)
@@ -58,7 +58,7 @@ func UpdateUser(c *gin.Context) {
 // [DELETE] delete
 func DeleteUser(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var user m.User
+	var user User
 
 	db.Delete(&user, id)
 

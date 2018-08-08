@@ -9,5 +9,5 @@ Just learning docker
   - [ ] Auth
   - [ ] Upload (should persist)
   - [ ] Test
-- [ ] Make a postgres container
+- [x] Make a postgres container
 - [ ] ?Make an nginx container?

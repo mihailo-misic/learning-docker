@@ -2,14 +2,32 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	m "github.com/mihailo-misic/learning-docker/01/models"
+	. "github.com/mihailo-misic/learning-docker/01/models"
 	"net/http"
 	"github.com/mihailo-misic/learning-docker/01/res"
 )
 
+func Homers(c *gin.Context) {
+	// c.JSON(http.StatusOK, gin.H{"PageTitle": "Yes"})
+	c.HTML(http.StatusOK, "home.gohtml", gin.H{"PageTitle": "Yes"})
+}
+
+// [GET] all
+func GetProducts(c *gin.Context) {
+	c.HTML(http.StatusOK, "home.gohtml", gin.H{"PageTitle": "Yes"})
+	// c.JSON(http.StatusOK, res.Data(db.Find(&[]Product{})))
+}
+
+// [GET] one
+func GetProduct(c *gin.Context) {
+	id := c.Params.ByName("id")
+
+	c.JSON(http.StatusOK, res.Data(db.First(&Product{}, id)))
+}
+
 // [POST] create
 func CreateProduct(c *gin.Context) {
-	var product m.Product
+	var product Product
 	if err := c.BindJSON(&product); err != nil {
 		c.JSON(http.StatusBadRequest, res.Err(res.Error{"Could not parse the data", "Error occurred while parsing the data", err}))
 		return
@@ -24,23 +42,11 @@ func CreateProduct(c *gin.Context) {
 	c.JSON(http.StatusBadRequest, res.Err(res.Error{"Could not create the product", "An error occurred while creating the new product", nil}))
 }
 
-// [GET] all
-func GetProducts(c *gin.Context) {
-	c.JSON(http.StatusOK, res.Data(db.Find(&[]m.Product{})))
-}
-
-// [GET] one
-func GetProduct(c *gin.Context) {
-	id := c.Params.ByName("id")
-
-	c.JSON(http.StatusOK, res.Data(db.First(&m.Product{}, id)))
-}
-
 // [PUT] update
 func UpdateProduct(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var prod m.Product
-	var newProd m.ResProduct
+	var prod Product
+	var newProd ResProduct
 
 	// Find the product
 	db.First(&prod, id)
@@ -58,7 +64,7 @@ func UpdateProduct(c *gin.Context) {
 // [DELETE] delete
 func DeleteProduct(c *gin.Context) {
 	id := c.Params.ByName("id")
-	var prod m.Product
+	var prod Product
 
 	db.Delete(&prod, id)
 

@@ -13,23 +13,24 @@ services:
     volumes:
       - ~/.docker-volumes/mygo/posgresql/data:/var/lib/posgresql/data
 
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - postgres
+    links:
+      - 'postgres'
+    ports:
+      - 8090:8080
+
   mygo:
     build: .
     depends_on:
-      - 'postgres'
+      - postgres
+      - adminer
     links:
       - 'postgres'
     volumes:
       - .:/go/src/app
     ports:
       - '8000:8000'
-
-  adminer:
-    image: adminer
-    restart: always
-    depends_on:
-      - 'postgres'
-    links:
-      - 'postgres'
-    ports:
-      - 8090:8080
