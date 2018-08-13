@@ -5,11 +5,11 @@ services:
     image: postgres:10.4
     restart: always
     environment:
-      POSTGRES_PASSWORD: secret
-      POSTGRES_USER: mygo
       POSTGRES_DB: crm
+      POSTGRES_USER: mygo
+      POSTGRES_PASSWORD: secret
     ports:
-      - '5433:5432'
+      - 2010:5432
     volumes:
       - ~/.docker-volumes/mygo/posgresql/data:/var/lib/posgresql/data
 
@@ -19,9 +19,9 @@ services:
     depends_on:
       - postgres
     links:
-      - 'postgres'
+      - postgres
     ports:
-      - 8090:8080
+      - 2020:8080
 
   mygo:
     build: .
@@ -29,8 +29,8 @@ services:
       - postgres
       - adminer
     links:
-      - 'postgres'
+      - postgres
     volumes:
       - .:/go/src/github.com/mihailo-misic/learning-docker/01
     ports:
-      - '8000:8000'
+      - 2000:8000
