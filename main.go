@@ -1,11 +1,11 @@
-package main
+package learning_docker
 
 import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	c "github.com/mihailo-misic/learning-docker/01/controllers"
-	"github.com/mihailo-misic/learning-docker/01/database"
-	m "github.com/mihailo-misic/learning-docker/01/models"
+	c "github.com/mihailo-misic/learning-docker/controllers"
+	"github.com/mihailo-misic/learning-docker/database"
+	m "github.com/mihailo-misic/learning-docker/models"
 	method "github.com/bu/gin-method-override"
 	"log"
 )
