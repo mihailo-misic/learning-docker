@@ -1,4 +1,4 @@
-package learning_docker
+package main
 
 import (
 	"github.com/gin-gonic/gin"
