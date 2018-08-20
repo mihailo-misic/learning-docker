@@ -3,8 +3,8 @@ package database
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	m "github.com/mihailo-misic/learning-docker/models"
-	c "github.com/mihailo-misic/learning-docker/controllers"
+	. "github.com/mihailo-misic/learning-docker/models"
+	. "github.com/mihailo-misic/learning-docker/controllers"
 	"log"
 )
 
@@ -24,10 +24,10 @@ func Init() (db *gorm.DB) {
 	}
 
 	// Migrate the schema
-	db.AutoMigrate(&m.Product{})
+	db.AutoMigrate(&Product{}, &User{})
 
 	// Connect the controllers to the Database
-	c.ConnectControllers(db)
+	ConnectControllers(db)
 
 	return
 }

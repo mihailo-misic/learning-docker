@@ -25,7 +25,7 @@ func GetProduct(c *gin.Context) {
 
 // [POST] create
 func CreateProduct(c *gin.Context) {
-	var product FormProduct
+	var product FormProductStruct
 	c.Request.ParseForm()
 
 	if err := c.Bind(&product); err != nil {
@@ -34,9 +34,8 @@ func CreateProduct(c *gin.Context) {
 	}
 
 	ok := db.Save(&product)
-
 	if ok.RowsAffected > 0 {
-		c.Redirect(http.StatusMovedPermanently, "/")
+		c.Redirect(http.StatusMovedPermanently, "/products")
 		return
 	}
 	c.JSON(http.StatusBadRequest, res.Err(res.Error{"Could not create the product", "An error occurred while creating the new product", nil}))
@@ -60,7 +59,7 @@ func UpdateProduct(c *gin.Context) {
 	// Update the product in the database
 	db.Model(&prod).Updates(newProd)
 
-	c.Redirect(http.StatusMovedPermanently, "/")
+	c.Redirect(http.StatusMovedPermanently, "/products")
 }
 
 // [DELETE] delete
@@ -73,7 +72,7 @@ func DeleteProduct(c *gin.Context) {
 	log.Println(ok.RowsAffected)
 
 	if ok.RowsAffected > 0 {
-		c.Redirect(http.StatusMovedPermanently, "/")
+		c.Redirect(http.StatusMovedPermanently, "/products")
 		return
 	}
 
@@ -81,7 +80,7 @@ func DeleteProduct(c *gin.Context) {
 }
 
 // [GET] Form
-func ProductForm(c *gin.Context) {
+func FormProduct(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var product interface{}
 	if id != "" {

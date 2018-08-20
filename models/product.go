@@ -25,14 +25,14 @@ type (
 		Image string `form:"image" json:"image"`
 	}
 
-	// FormProduct represents Product form data
-	FormProduct struct {
+	// FormProductStruct represents Product form data
+	FormProductStruct struct {
 		Name  string `form:"name" json:"name" binding:"required"`
 		Price int    `form:"price" json:"price" binding:"required"`
 		Image string `form:"image" json:"image"`
 	}
 )
 
-func (FormProduct) TableName() string {
+func (FormProductStruct) TableName() string {
 	return "products"
 }

@@ -20,11 +20,24 @@ type (
 	}
 	// ResUser represents a formatted User
 	ResUser struct {
-		ID        uint64 `json:"id"`
-		Email     string `json:"email"`
-		Password  string `json:"password"`
-		FirstName string `json:"first-name"`
-		LastName  string `json:"last-name"`
-		Image     string `json:"image"`
+		ID        uint64 `form:"id" json:"id"`
+		Email     string `form:"email" json:"email"`
+		Password  string `form:"password" json:"password"`
+		FirstName string `form:"first-name" json:"first-name"`
+		LastName  string `form:"last-name" json:"last-name"`
+		Image     string `form:"image" json:"image"`
+	}
+	
+	// FormUserStruct represents User form data
+	FormUserStruct struct{
+		Email     string `form:"email" json:"email" binding:"required"`
+		Password  string `form:"password" json:"password" binding:"required"`
+		FirstName string `form:"first-name" json:"first-name"`
+		LastName  string `form:"last-name" json:"last-name"`
+		Image     string `form:"image" json:"image"`
 	}
 )
+
+func (FormUserStruct) TableName() string {
+	return "users"
+}

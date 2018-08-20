@@ -1,0 +1,61 @@
+{{ template "Head" }}
+
+{{ template "Header" .PageTitle }}
+
+<div class="action-holder">
+    <a href="/users">Back</a>
+</div>
+
+{{ if .User }}
+<!-- Edit -->
+<form action="/users/update/{{ .User.ID }}" method="POST" class="text-center">
+    <input type="hidden" name="_method" value="PUT">
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="{{ .User.Email }}">
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" value="{{ .User.Password }}">
+
+    <br>
+
+    <label for="first-name">First Name</label>
+    <input type="text" id="first-name" name="first-name" value="{{ .User.FirstName }}">
+
+    <label for="last-name">Last Name</label>
+    <input type="text" id="last-name" name="last-name" value="{{ .User.LastName }}">
+
+    <label for="image">Image</label>
+    <input type="text" id="image" name="image" value="{{ .User.Image }}">
+
+    <hr>
+
+    <button type="submit">Submit</button>
+</form>
+{{ else }}
+<!-- Create -->
+<form action="/users" method="POST" class="text-center">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email">
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password">
+
+    <br>
+
+    <label for="first-name">First Name</label>
+    <input type="text" id="first-name" name="first-name">
+
+    <label for="last-name">Last Name</label>
+    <input type="text" id="last-name" name="last-name">
+
+    <label for="image">Image</label>
+    <input type="text" id="image" name="image">
+
+    <hr>
+
+    <button type="submit">Submit</button>
+</form>
+{{ end }}
+
+{{ template "Footer" }}

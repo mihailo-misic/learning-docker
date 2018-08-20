@@ -1,0 +1,17 @@
+{{ define "Header" }}
+<header>
+    <nav>
+        <ul class="pages">
+            <li><a href="/users">Users</a></li>
+            <li><a href="/products">Products</a></li>
+        </ul>
+
+        <ul class="auth">
+            <li><a href="/auth/logout">Log out</a></li>
+        </ul>
+    </nav>
+
+    <h1>{{ . }} </h1>
+</header>
+<main>
+{{ end }}

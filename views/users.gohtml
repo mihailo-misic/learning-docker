@@ -3,35 +3,39 @@
 {{ template "Header" .PageTitle }}
 
 <div class="action-holder">
-    <a href="/products/create">Create</a>
+    <a href="/users/create">Create</a>
 </div>
 
 <table border="1">
     <thead>
     <tr>
         <th class="xsc">ID</th>
-        <th>Name</th>
-        <th class="smc">Price</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>First Name</th>
+        <th>Last Name</th>
         <th class="smc">Actions</th>
     </tr>
     </thead>
     <tbody>
-    {{ if len .Products }}
-    {{ range $v := .Products }}
+    {{ if len .Users }}
+    {{ range $v := .Users }}
     <tr>
         <td class="xsc">{{ $v.ID }}</td>
-        <td>{{ $v.Name }}</td>
-        <td class="smc">{{ $v.Price }}</td>
+        <td>{{ $v.Email }}</td>
+        <td>{{ $v.Password }}</td>
+        <td>{{ $v.FirstName }}</td>
+        <td>{{ $v.LastName }}</td>
         <td class="smc">
-            <a href="/products/edit/{{ $v.ID }}">Edit</a>
-            <a href="/products/delete/{{ $v.ID }}">Delete</a>
+            <a href="/users/edit/{{ $v.ID }}">Edit</a>
+            <a href="/users/delete/{{ $v.ID }}">Delete</a>
         </td>
     </tr>
     {{ end }}
     {{ else }}
     <tr>
         <td colspan="100" style="text-align: center; padding: 10px;">
-            <b>No Products</b>
+            <b>No Users</b>
         </td>
     </tr>
     {{ end }}

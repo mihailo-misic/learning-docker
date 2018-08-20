@@ -1,0 +1,136 @@
+/**
+ * Layout
+ *****************************/
+body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: padding-box;
+
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
+    min-height: 100vh;
+    min-width: 80vw;
+    padding: 0 10vw;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: teal;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 10vw;
+    box-sizing: border-box;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav .pages {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+nav li a {
+    color: white;
+    text-decoration: none;
+    padding: 0;
+}
+
+nav .pages li:not(:last-child) {
+    margin-right: 40px;
+}
+
+header h1 {
+    margin-top: 60px;
+    margin-bottom: 0;
+}
+
+main {
+    flex: 1;
+    justify-content: space-evenly;
+}
+
+.action-holder {
+    text-align: right;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+/**
+ * Table
+ *****************************/
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, th {
+    padding: 5px;
+}
+
+thead {
+    background-color: lightgray;
+}
+
+table .xsc {
+    text-align: center;
+    width: 60px;
+}
+
+table .smc {
+    text-align: center;
+    width: 120px;
+}
+
+table .mdc {
+    width: 240px;
+}
+
+table tbody a:first-child {
+    margin-right: 10px;
+}
+
+/**
+ * Form
+ *****************************/
+input {
+    margin-bottom: 30px;
+}
+
+input:not(:last-child) {
+    margin-right: 20px;
+}
+
+/**
+ * Helpers
+ *****************************/
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
