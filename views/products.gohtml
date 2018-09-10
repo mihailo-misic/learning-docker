@@ -8,32 +8,32 @@
 
 <table border="1">
     <thead>
-    <tr>
-        <th class="xsc">ID</th>
-        <th>Name</th>
-        <th class="smc">Price</th>
-        <th class="smc">Actions</th>
-    </tr>
+        <tr>
+            <th class="xsc">ID</th>
+            <th>Name</th>
+            <th class="smc">Price</th>
+            <th class="smc">Actions</th>
+        </tr>
     </thead>
     <tbody>
     {{ if len .Products }}
     {{ range $v := .Products }}
-    <tr>
-        <td class="xsc">{{ $v.ID }}</td>
-        <td>{{ $v.Name }}</td>
-        <td class="smc">{{ $v.Price }}</td>
-        <td class="smc">
-            <a href="/products/edit/{{ $v.ID }}">Edit</a>
-            <a href="/products/delete/{{ $v.ID }}">Delete</a>
-        </td>
-    </tr>
+        <tr>
+            <td class="xsc">{{ $v.ID }}</td>
+            <td>{{ $v.Name }}</td>
+            <td class="smc">{{ $v.Price }}</td>
+            <td class="smc">
+                <a href="/products/edit/{{ $v.ID }}">Edit</a>
+                <a href="/products/delete/{{ $v.ID }}">Delete</a>
+            </td>
+        </tr>
     {{ end }}
     {{ else }}
-    <tr>
-        <td colspan="100" style="text-align: center; padding: 10px;">
-            <b>No Products</b>
-        </td>
-    </tr>
+        <tr>
+            <td colspan="100" style="text-align: center; padding: 10px;">
+                <b>No Products</b>
+            </td>
+        </tr>
     {{ end }}
     </tbody>
 </table>

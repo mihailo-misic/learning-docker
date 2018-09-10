@@ -1,0 +1,24 @@
+{{ template "Head" }}
+<main>
+    <div class="login-holder">
+        <form action="/auth/register" method="post">
+            <h1>Register</h1>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required class="wide text-center">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required class="wide text-center">
+            <label for="first-name">First name</label>
+            <input type="text" name="first-name" id="first-name" class="wide text-center">
+            <label for="last-name">Last name</label>
+            <input type="text" name="last-name" id="last-name" class="wide text-center">
+
+            <div class="text-center wide">
+                <button type="submit" class="wide">Submit</button>
+                <br>
+                <a href="/auth/login">Log in</a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

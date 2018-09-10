@@ -3,8 +3,8 @@ package database
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	. "github.com/mihailo-misic/learning-docker/models"
 	. "github.com/mihailo-misic/learning-docker/controllers"
+	. "github.com/mihailo-misic/learning-docker/models"
 	"log"
 )
 

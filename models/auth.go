@@ -3,10 +3,10 @@ package models
 type (
 	// FormLoginStruct represents Login form data
 	FormLoginStruct struct {
-		Email     string `form:"email" json:"email" binding:"required"`
-		Password  string `form:"password" json:"password" binding:"required"`
+		Email    string `form:"email" json:"email" binding:"required"`
+		Password string `form:"password" json:"password" binding:"required"`
 	}
-	
+
 	// FormRegisterStruct represents Register form data
 	FormRegisterStruct struct {
 		Email     string `form:"email" json:"email" binding:"required"`

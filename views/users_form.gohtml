@@ -8,7 +8,7 @@
 
 {{ if .User }}
 <!-- Edit -->
-<form action="/users/update/{{ .User.ID }}" method="POST" class="text-center">
+<form action="/users/update/{{ .User.ID }}" method="POST" enctype="multipart/form-data" class="text-center">
     <input type="hidden" name="_method" value="PUT">
 
     <label for="email">Email</label>
@@ -26,9 +26,8 @@
     <input type="text" id="last-name" name="last-name" value="{{ .User.LastName }}">
 
     <label for="image">Image</label>
-    <input type="text" id="image" name="image" value="{{ .User.Image }}">
-
-    <hr>
+    <img src="/storage/{{ .User.Image }}" alt="">
+    <input type="file" id="image" name="image">
 
     <button type="submit">Submit</button>
 </form>
@@ -36,10 +35,10 @@
 <!-- Create -->
 <form action="/users" method="POST" class="text-center">
     <label for="email">Email</label>
-    <input type="email" id="email" name="email">
+    <input type="email" id="email" name="email" required>
 
     <label for="password">Password</label>
-    <input type="password" id="password" name="password">
+    <input type="password" id="password" name="password" required>
 
     <br>
 
@@ -51,8 +50,6 @@
 
     <label for="image">Image</label>
     <input type="text" id="image" name="image">
-
-    <hr>
 
     <button type="submit">Submit</button>
 </form>

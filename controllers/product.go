@@ -3,9 +3,9 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	. "github.com/mihailo-misic/learning-docker/models"
-	"net/http"
 	"github.com/mihailo-misic/learning-docker/res"
 	"log"
+	"net/http"
 )
 
 // [GET] all

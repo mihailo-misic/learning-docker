@@ -8,36 +8,36 @@
 
 <table border="1">
     <thead>
-    <tr>
-        <th class="xsc">ID</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th class="smc">Actions</th>
-    </tr>
+        <tr>
+            <th class="xsc">ID</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th class="smc">Actions</th>
+        </tr>
     </thead>
     <tbody>
     {{ if len .Users }}
     {{ range $v := .Users }}
-    <tr>
-        <td class="xsc">{{ $v.ID }}</td>
-        <td>{{ $v.Email }}</td>
-        <td>{{ $v.Password }}</td>
-        <td>{{ $v.FirstName }}</td>
-        <td>{{ $v.LastName }}</td>
-        <td class="smc">
-            <a href="/users/edit/{{ $v.ID }}">Edit</a>
-            <a href="/users/delete/{{ $v.ID }}">Delete</a>
-        </td>
-    </tr>
+        <tr>
+            <td class="xsc">{{ $v.ID }}</td>
+            <td>{{ $v.Email }}</td>
+            <td>{{ $v.Password }}</td>
+            <td>{{ $v.FirstName }}</td>
+            <td>{{ $v.LastName }}</td>
+            <td class="smc">
+                <a href="/users/edit/{{ $v.ID }}">Edit</a>
+                <a href="/users/delete/{{ $v.ID }}">Delete</a>
+            </td>
+        </tr>
     {{ end }}
     {{ else }}
-    <tr>
-        <td colspan="100" style="text-align: center; padding: 10px;">
-            <b>No Users</b>
-        </td>
-    </tr>
+        <tr>
+            <td colspan="100" style="text-align: center; padding: 10px;">
+                <b>No Users</b>
+            </td>
+        </tr>
     {{ end }}
     </tbody>
 </table>

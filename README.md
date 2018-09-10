@@ -5,7 +5,7 @@ Just learning docker
 
 - [ ] Make a simple go app for making gophers in a container
   - [x] Simple CRUD
-  - [ ] Auth
+  - [x] Auth
   - [ ] Upload (should persist)
   - [ ] Test
 - [x] Make a postgres container

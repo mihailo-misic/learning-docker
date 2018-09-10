@@ -1,27 +1,31 @@
 package main
 
 import (
+	method "github.com/bu/gin-method-override"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	c "github.com/mihailo-misic/learning-docker/controllers"
 	"github.com/mihailo-misic/learning-docker/database"
 	m "github.com/mihailo-misic/learning-docker/models"
-	method "github.com/bu/gin-method-override"
 	"log"
-	"github.com/gin-gonic/contrib/static"
 )
 
 func setupRouter() *gin.Engine {
 	r := gin.Default()
-	
+
+	store := cookie.NewStore([]byte("secret"))
+	r.Use(sessions.Sessions("auth", store))
+
 	// Allow PATCH, PUT & DELETE method parsing
 	r.Use(method.ProcessMethodOverride(r))
 	// Load up static files
 	r.Use(static.Serve("/static", static.LocalFile("./static", true)))
 	// Use go html templates
 	r.LoadHTMLGlob("views/*.gohtml")
-	
-	
+
 	auth := r.Group("/auth")
 	{
 		auth.POST("/register", c.Register)
@@ -30,7 +34,7 @@ func setupRouter() *gin.Engine {
 		auth.GET("/login", c.FormLogin)
 		auth.GET("/logout", c.Logout)
 	}
-	
+
 	authorized := r.Group("/", c.IsAuth)
 	{
 		authorized.GET("/", c.GetProducts)
@@ -44,7 +48,7 @@ func setupRouter() *gin.Engine {
 			users.GET("/delete/:id", c.DeleteUser)
 			users.PUT("/update/:id", c.UpdateUser)
 		}
-		
+
 		products := authorized.Group("/products")
 		{
 			products.GET("/", c.GetProducts)
@@ -56,7 +60,7 @@ func setupRouter() *gin.Engine {
 			products.PUT("/update/:id", c.UpdateProduct)
 		}
 	}
-	
+
 	return r
 }
 
@@ -68,10 +72,10 @@ func main() {
 			panic(err)
 		}
 	}()
-	
+
 	db.AutoMigrate(&m.Product{})
-	
+
 	r := setupRouter()
-	
+
 	log.Fatal(r.Run(":8000"))
 }

@@ -3,23 +3,23 @@ package controllers
 import (
 	"github.com/gin-gonic/gin"
 	. "github.com/mihailo-misic/learning-docker/models"
-	"net/http"
 	"github.com/mihailo-misic/learning-docker/res"
 	"log"
+	"net/http"
 )
 
 // [GET] all
 func GetUsers(c *gin.Context) {
 	c.HTML(http.StatusOK, "users.gohtml", gin.H{
 		"PageTitle": "Users",
-		"Users":  db.Find(&[]User{}).Value,
+		"Users":     db.Find(&[]User{}).Value,
 	})
 }
 
 // [GET] one
 func GetUser(c *gin.Context) {
 	id := c.Params.ByName("id")
-	
+
 	c.JSON(http.StatusOK, res.Data(db.First(&User{}, id)))
 }
 
@@ -27,14 +27,14 @@ func GetUser(c *gin.Context) {
 func CreateUser(c *gin.Context) {
 	var user FormUserStruct
 	c.Request.ParseForm()
-	
+
 	if err := c.Bind(&user); err != nil {
 		c.JSON(http.StatusBadRequest, res.Err(res.Error{"Could not parse the data", "Error occurred while parsing the data", err}))
 		return
 	}
-	
+
 	ok := db.Save(&user)
-	
+
 	if ok.RowsAffected > 0 {
 		c.Redirect(http.StatusMovedPermanently, "/users")
 		return
@@ -47,9 +47,10 @@ func UpdateUser(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var user User
 	var newUser ResUser
-	
+
+	// TODO Implement file uploading
 	c.Request.ParseForm()
-	
+
 	// Find the user
 	db.First(&user, id)
 	// Parse the request data
@@ -59,7 +60,7 @@ func UpdateUser(c *gin.Context) {
 	}
 	// Update the user in the database
 	db.Model(&user).Updates(newUser)
-	
+
 	c.Redirect(http.StatusMovedPermanently, "/users")
 }
 
@@ -67,16 +68,16 @@ func UpdateUser(c *gin.Context) {
 func DeleteUser(c *gin.Context) {
 	id := c.Params.ByName("id")
 	var user User
-	
+
 	ok := db.Delete(&user, id)
-	
+
 	log.Println(ok.RowsAffected)
-	
+
 	if ok.RowsAffected > 0 {
 		c.Redirect(http.StatusMovedPermanently, "/users")
 		return
 	}
-	
+
 	c.JSON(http.StatusBadRequest, res.Err(res.Error{"Unable to delete", "Error occurred while deleting the user", nil}))
 }
 
@@ -87,9 +88,9 @@ func FormUser(c *gin.Context) {
 	if id != "" {
 		user = db.First(&User{}, id).Value
 	}
-	
+
 	c.HTML(http.StatusOK, "users_form.gohtml", gin.H{
 		"PageTitle": "Users",
-		"User":   user,
+		"User":      user,
 	})
 }

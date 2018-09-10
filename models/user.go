@@ -14,8 +14,8 @@ type (
 		LastName  string `json:"last-name" gorm:"column:last_name" binding:"required"`
 		Image     string `json:"image"`
 
-		CreatedAt time.Time  `json:"created-at"`
-		UpdatedAt time.Time  `json:"updated-at"`
+		CreatedAt time.Time  `json:"created-at" sql:"DEFAULT:current_timestamp"`
+		UpdatedAt time.Time  `json:"updated-at" sql:"DEFAULT:current_timestamp"`
 		DeletedAt *time.Time `json:"deleted-at" sql:"index"`
 	}
 	// ResUser represents a formatted User
@@ -27,9 +27,9 @@ type (
 		LastName  string `form:"last-name" json:"last-name"`
 		Image     string `form:"image" json:"image"`
 	}
-	
+
 	// FormUserStruct represents User form data
-	FormUserStruct struct{
+	FormUserStruct struct {
 		Email     string `form:"email" json:"email" binding:"required"`
 		Password  string `form:"password" json:"password" binding:"required"`
 		FirstName string `form:"first-name" json:"first-name"`
