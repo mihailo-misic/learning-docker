@@ -33,9 +33,9 @@ docker-compose up
 docker-compose down
 ```
 
-<br>
-
 ---
+
+<br>
 
 ### To login into adminer
 
