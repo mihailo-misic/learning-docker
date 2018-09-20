@@ -12,6 +12,7 @@ Just learning docker
 - [ ] ?Make an nginx container?
 
 <br>
+
 ---
 
 ### To build up (first time)
@@ -33,6 +34,7 @@ docker-compose down
 ```
 
 <br>
+
 ---
 
 ### To login into adminer
